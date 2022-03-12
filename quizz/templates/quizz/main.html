@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'quizes/main.js' %}" defer></script> 
+{% endblock scripts %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% block content %}
+
+<!-- Modal -->
+
+<div class="modal fade " id="quizStartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog text-white bg-dark mb-3">
+    <div class="modal-content text-white bg-dark mb-3">
+      <div class="modal-header text-white bg-dark mb-3">
+        <h5 class="modal-title" id="exampleModalLabel">Start?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body-confirm"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">no</button>
+        <button type="button" id="start-button" class="btn btn-success">yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class=" hero available_quizess_section"> <h1 class="quiz__header">Avilable <span>Quizes</span><h1>
+  <br>
+  <div class="row row-cols-1 row-cols-md-3 g-4 ">
+  {% for obj in object_list %}
+    <div class="col">
+      <div class="card text-white bg-dark mb-6" id="quizz">
+        <h2 class="card-title p-3 m-2">{{obj.name}}</h2>
+        <div class="card-body">
+    <button 
+        class=" btn btn-primary modal-button"
+        data-pk="{{obj.pk}}"
+        data-quiz="{{obj.name}}"
+        data-questions="{{obj.number_of_questions}}"
+        data-difficulty="{{obj.difficluty}}"
+        data-time="{{obj.time}}"
+        data-pass = "{{obj.required_score_to_pass}}"
+        data-toggle="modal"
+        data-target="#quizStartModal">
+        {{obj.name}}
+    </button>
+  </div>
+</div>
+</div>
+
+{% endfor %}
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+{% endblock content %}
